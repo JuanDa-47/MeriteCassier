@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block contenido %}
+<div class="reg">
+  <h1>Mérite<span>Casier</span></h1>
+  <p>{{ t('tag') }}</p>
+  <h2>{{ t('regT') }}</h2>
+  <p>{{ t('regP') }}</p>
+  <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input name="nombre" placeholder="{{ t('regN') }}" maxlength="30" aria-label="{{ t('regN') }}" required>
+    <button class="pri full" type="submit">{{ t('regB') }}</button>
+  </form>
+  <p>{% include "_idiomas.html" %}</p>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block contenido %}
+<div class="hero">
+  <small>{{ t('hi') }}, {{ usuario['nombre'] }}</small>
+  <div class="pts">{{ usuario['puntos'] }}</div>
+  <div>{{ t('pts') }}</div>
+  <div class="bar"><i style="width: {{ pct }}%"></i></div>
+  <small>{{ t('goal') }}</small>
+</div>
+
+<h2>{{ t('earn') }}</h2>
+{% for a in actividades %}
+<form class="card row" method="post" action="{{ url_for('ganar') }}">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="tipo" value="{{ a }}">
+  <div class="act"><b>{{ t(a) }}</b><small>{{ t(a ~ 'S') }}</small></div>
+  <div class="row">
+    {% if por_hora[a] %}
+    <select name="horas" aria-label="{{ t('hours') }}">
+      {% for h in range(1, max_horas + 1) %}<option value="{{ h }}">{{ h }} h</option>{% endfor %}
+    </select>
+    {% endif %}
+    <button class="pri" type="submit">{{ t('scan') }}</button>
+  </div>
+</form>
+{% endfor %}
+
+<h2>{{ t('hist') }}</h2>
+{% if log %}
+<ul class="log">
+  {% for r in log %}
+  <li>{{ t('log' ~ r['tipo']|capitalize) }}{% if r['detalle'] %} {{ r['detalle'] }}{% endif %} · {{ '%+d' % r['puntos'] }} {{ t('pts') }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="log">{{ t('none') }}</p>
+{% endif %}
+
+<h2>{{ t('rules') }}</h2>
+<p class="log">{{ t('rulesT') }}</p>
+<p class="log"><small>{{ t('demo') }}</small></p>
+{% endblock %}

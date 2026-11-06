@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block contenido %}
+<p class="log">{{ t('tip') }}</p>
+
+{% for zona, lista in zonas.items() %}
+<div class="zone">
+  <span>{{ t(zona) }}</span>
+  <small>{{ lista | selectattr('estado', 'equalto', 'libre') | list | length }} {{ t('free')|lower }}</small>
+</div>
+<div class="bank">
+  {% for l in lista %}
+    {% set mio = l['usuario_id'] == uid and l['estado'] == 'reservado' %}
+    {% set clase = 'mine' if mio else ('free' if l['estado'] == 'libre' else ('res' if l['estado'] == 'reservado' else 'mnt')) %}
+    <form method="post" action="{{ url_for('reservar', locker_id=l['id']) }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <button class="lk {{ clase }}" type="submit" {{ 'disabled' if clase != 'free' }}
+              aria-label="{{ l['id'] }} – {{ t(clase) }}">
+        <span class="v"><i></i><i></i><i></i></span>
+        <b>{{ l['id'] }}</b>
+      </button>
+    </form>
+  {% endfor %}
+</div>
+{% endfor %}
+
+<div class="leg">
+  <span><i style="background: var(--green)"></i>{{ t('free') }}</span>
+  <span><i style="background: #6C8294"></i>{{ t('res') }}</span>
+  <span><i style="background: var(--warn)"></i>{{ t('mnt') }}</span>
+  <span><i style="background: var(--blue)"></i>{{ t('mine') }}</span>
+</div>
+{% endblock %}

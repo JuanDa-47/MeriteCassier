@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block contenido %}
+{% if reserva %}
+<div class="card">
+  <small class="log">{{ t('myL') }}</small>
+  <div class="big">{{ reserva['id'] }}</div>
+  <span class="tag">{{ t(reserva['zona']) }}</span>
+  <p class="log mt">{{ t('until') }}</p>
+  <div class="big">{{ hora(reserva['expira_en']) }}</div>
+</div>
+<form method="post" action="{{ url_for('cancelar') }}">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <button class="sec" type="submit">{{ t('cancel') }}</button>
+</form>
+{% else %}
+<div class="card">
+  <p>{{ t('noRes') }}</p>
+  <a class="pri" href="{{ url_for('lockers') }}">{{ t('book') }}</a>
+</div>
+{% endif %}
+{% endblock %}

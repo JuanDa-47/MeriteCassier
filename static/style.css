@@ -1,0 +1,103 @@
+/* MériteCasier - azul (tecnología) y verde (salud) */
+:root {
+  --bg: #F1F7F5; --surf: #fff; --ink: #0E2A3F; --mut: #5B7385;
+  --blue: #1B5FA8; --green: #0F7F5B; --mint: #DDF3EA; --line: #CFE0DA;
+  --warn: #9A640F; --hero: #1B5FA8; --on-accent: #fff;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0A1B2A; --surf: #12293D; --ink: #E7F2F0; --mut: #8FA9B8;
+    --blue: #6BAEF0; --green: #3CCB9B; --mint: #14392F; --line: #24425A;
+    --warn: #E3B04B; --hero: #17487A; --on-accent: #07202F;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink); line-height: 1.45;
+  font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+  padding-top: env(safe-area-inset-top, 0px);
+}
+a { color: inherit; text-decoration: none; }
+.app { max-width: 520px; margin: 0 auto; padding: 16px 16px 96px; }
+
+header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+h1 { font-size: 22px; font-weight: 800; margin: 0; letter-spacing: -.02em; }
+h1 span { color: var(--green); }
+h2 { font-size: 17px; font-weight: 600; margin: 20px 0 8px; }
+
+.langs { display: flex; gap: 6px; }
+.langs a {
+  border: 1px solid var(--line); background: var(--surf); border-radius: 20px;
+  padding: 5px 12px; font-size: 13px; color: var(--mut);
+}
+.langs a.on { background: var(--mint); color: var(--green); font-weight: 600; border-color: var(--green); }
+
+/* Tarjeta de puntos */
+.hero { background: var(--hero); color: #fff; border-radius: 18px; padding: 18px; }
+.hero small { opacity: .85; }
+.pts { font-size: 56px; font-weight: 800; line-height: 1; margin: 4px 0 2px; }
+.bar { height: 8px; border-radius: 8px; background: rgba(255,255,255,.28); overflow: hidden; margin-top: 10px; }
+.bar i { display: block; height: 100%; background: #7CF0C4; border-radius: 8px; }
+
+/* Tarjetas y formularios */
+.card { background: var(--surf); border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin-bottom: 10px; }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.act b { display: block; font-weight: 600; }
+.act small { color: var(--mut); }
+button, select, input { font: inherit; color: var(--ink); }
+.pri {
+  background: var(--green); color: var(--on-accent); border: 0; border-radius: 10px;
+  padding: 10px 14px; font-weight: 600; cursor: pointer; display: inline-block;
+}
+.pri.full { width: 100%; }
+.sec { background: transparent; border: 1px solid var(--line); border-radius: 10px; padding: 9px 13px; cursor: pointer; }
+select, input { background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 9px; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+/* Banco de lockers (el elemento memorable) */
+.zone { display: flex; justify-content: space-between; font-weight: 600; margin: 18px 0 8px; }
+.zone small { color: var(--mut); font-weight: 400; }
+.bank { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: var(--line); padding: 8px; border-radius: 12px; }
+.bank form { display: contents; }
+.lk {
+  aspect-ratio: 3 / 4; border: 0; border-radius: 6px; width: 100%;
+  display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+  padding: 8px 4px; color: var(--on-accent); cursor: pointer;
+}
+.lk .v { width: 60%; display: grid; gap: 3px; }
+.lk .v i { height: 2px; background: currentColor; opacity: .55; border-radius: 2px; }
+.lk b { font-size: 13px; }
+.lk.free { background: var(--green); }
+.lk.res  { background: #6C8294; cursor: not-allowed; }
+.lk.mnt  { background: var(--warn); cursor: not-allowed; }
+.lk.mine { background: var(--blue); outline: 3px solid var(--ink); }
+.leg { display: flex; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--mut); margin-top: 8px; }
+.leg i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; }
+
+.big { font-size: 34px; font-weight: 800; color: var(--green); }
+.tag { display: inline-block; background: var(--mint); color: var(--green); border-radius: 8px; padding: 2px 8px; font-size: 12px; font-weight: 600; }
+.log { font-size: 14px; color: var(--mut); margin: 0; padding: 0; list-style: none; }
+ul.log li { padding: 5px 0; border-bottom: 1px solid var(--line); }
+
+/* Navegación inferior */
+nav {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; justify-content: center; gap: 6px;
+  background: var(--surf); border-top: 1px solid var(--line);
+  padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px));
+}
+nav a { flex: 1; max-width: 160px; text-align: center; border-radius: 10px; padding: 10px; color: var(--mut); }
+nav a.on { background: var(--mint); color: var(--green); font-weight: 600; }
+
+.toast {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: 84px; z-index: 9;
+  background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 12px; font-size: 14px;
+  animation: ocultar 4s forwards;
+}
+@keyframes ocultar { 0%, 80% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+
+.reg { margin-top: 12vh; text-align: center; }
+.reg .langs { justify-content: center; }
+.mt { margin-top: 14px; }
+.reg p { color: var(--mut); }
+.reg input { width: 100%; margin: 12px 0; }
+@media (prefers-reduced-motion: reduce) { .toast { animation: none; } }

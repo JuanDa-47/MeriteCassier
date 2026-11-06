@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1B5FA8">
+  <title>MériteCasier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="app">
+    {% if usuario %}
+    <header>
+      <h1>Mérite<span>Casier</span></h1>
+      {% include "_idiomas.html" %}
+    </header>
+    {% endif %}
+    {% block contenido %}{% endblock %}
+  </div>
+
+  {% with mensajes = get_flashed_messages() %}
+    {% if mensajes %}<div class="toast" role="status" aria-live="polite">{{ mensajes[0] }}</div>{% endif %}
+  {% endwith %}
+
+  {% if usuario %}
+  <nav>
+    <a href="{{ url_for('inicio') }}" class="{{ 'on' if tab == 'inicio' }}">{{ t('tabH') }}</a>
+    <a href="{{ url_for('lockers') }}" class="{{ 'on' if tab == 'lockers' }}">{{ t('tabL') }}</a>
+    <a href="{{ url_for('mi_reserva') }}" class="{{ 'on' if tab == 'mia' }}">{{ t('tabM') }}</a>
+  </nav>
+  {% endif %}
+</body>
+</html>
